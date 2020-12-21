@@ -1,0 +1,22 @@
+spring:
+  profiles:
+    active: dev
+  devtools:
+    add-properties: false
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5432/sarafan
+    username: u
+    password: p
+  jpa:
+    show-sql: true
+    open-in-view: false
+    hibernate:
+      ddl-auto: update
+
+server:
+  port: 8080
+
+logging:
+  level:
+    web: info
