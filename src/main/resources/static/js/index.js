@@ -1,3 +1,7 @@
+(function () {
+    "use strict";
+}());
+
 const messageApi = Vue.resource('/messages/{id}');
 
 Vue.component('message-form', {
@@ -6,25 +10,28 @@ Vue.component('message-form', {
         return {
             id: '',
             text: ''
-        }
+        };
     },
     watch: {
-        messageAttr: function(newVal, oldVal) {
+        messageAttr: function (newVal, oldVal) {
             this.id = newVal.id;
             this.text = newVal.text;
         }
     },
-    template:
-        '<div>' +
-            '<input type="text" placeholder="Write your message.." v-model="text"/>' +
-            '<input type="button" value="Save" v-on:click="save"/>' +
+    template: '<div>' +
+        '<input type="text" placeholder="Write your message.." v-model="text"/>' +
+        '<input type="button" value="Save" v-on:click="save"/>' +
         '</div>',
     methods: {
         save: function () {
-            let msg = { text: this.text };
+            let msg = {
+                text: this.text
+            };
 
             if (this.id) {
-                messageApi.update({id: this.id}, msg)
+                messageApi.update({
+                        id: this.id
+                    }, msg)
                     .then(result => result.json()
                         .then(data => {
                             const index = getIndex(this.messages, id);
@@ -46,25 +53,26 @@ Vue.component('message-form', {
 
 Vue.component('message-row', {
     props: ['message', 'editMessage', 'messages'],
-    template:
-        '<div>' +
-            '<i>(*)</i> {{message.text}}' +
-            '<span style="position: absolute; right: 0">' +
-                '<input type="button" value="Edit" v-on:click="editMsg"/>' +
-                '<input type="button" value="X" v-on:click="deleteMsg"/>' +
-            '</span>' +
+    template: '<div>' +
+        '<i>(*)</i> {{message.text}}' +
+        '<span style="position: absolute; right: 0">' +
+        '<input type="button" value="Edit" v-on:click="editMsg"/>' +
+        '<input type="button" value="X" v-on:click="deleteMsg"/>' +
+        '</span>' +
         '</div>',
     methods: {
         editMsg: function () {
             this.editMessage(this.message);
         },
-        deleteMsg: function() {
-            messageApi.remove({id: this.message.id})
+        deleteMsg: function () {
+            messageApi.remove({
+                    id: this.message.id
+                })
                 .then(result => {
                     if (result.ok) {
                         this.messages.splice(this.messages.indexOf(this.message), 1);
                     }
-                })
+                });
         }
     }
 });
@@ -74,20 +82,19 @@ Vue.component('messages-list', {
     data: function () {
         return {
             message: null
-        }
+        };
     },
-    template:
-        '<div style="position: relative; width: 300px">' +
-            '<message-form :messsages="messages" :messageAttr="message"></message-form>' +
-            '<message-row v-for="message in messages" :key="message.id" :message="message" ' +
-            ':editMessage="editMessage" :messages="messages"/>' +
+    template: '<div style="position: relative; width: 300px">' +
+        '<message-form :messsages="messages" :messageAttr="message"></message-form>' +
+        '<message-row v-for="message in messages" :key="message.id" :message="message" ' +
+        ':editMessage="editMessage" :messages="messages"/>' +
         '</div>',
     created: function () {
         messageApi.get().then((res) => {
             res.json().then((data) => {
                 data.forEach(msg => this.messages.push(msg));
-            })
-        })
+            });
+        });
     },
     methods: {
         editMessage: function (message) {
