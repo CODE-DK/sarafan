@@ -8,11 +8,8 @@ spring:
     url: jdbc:postgresql://localhost:5432/sarafan
     username: u
     password: p
-  jpa:
-    show-sql: true
-    open-in-view: false
-    hibernate:
-      ddl-auto: update
+  jooq:
+    sql-dialect: postgres
 
 server:
   port: 8080

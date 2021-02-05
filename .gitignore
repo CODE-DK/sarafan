@@ -38,5 +38,4 @@ out/
 .jshintrc
 
 ### Local ###
-/docker-compose.yml
 /.volumes

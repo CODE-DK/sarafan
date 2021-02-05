@@ -4,8 +4,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication
 
 @SpringBootApplication
-class SarafanApplication
+class Start
 
 fun main(args: Array<String>) {
-	runApplication<SarafanApplication>(*args)
+    runApplication<Start>(*args)
 }

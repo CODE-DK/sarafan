@@ -1,0 +1,16 @@
+version: '3.9'
+
+services:
+  sarafan_db:
+    image: postgres:13
+    restart: unless-stopped
+    container_name: sarafan_db
+    environment:
+      POSTGRES_DB: sarafan
+      POSTGRES_USER: u
+      POSTGRES_PASSWORD: p
+      PGDATA: var/lib/postgresql/data
+    volumes:
+      - ./.volumes/data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
